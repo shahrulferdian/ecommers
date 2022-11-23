@@ -103,7 +103,7 @@ class AdminEditProductComponent extends Component
         ]);
         if ($this->newimage) {
             $this->validateOnly($fields, [
-                'image'=>'required | mimes:jpg, jpeg, png',
+                'image'=>'required',
             ]);
         }
     }
@@ -123,7 +123,7 @@ class AdminEditProductComponent extends Component
         ]);
         if ($this->newimage) {
             $this->validate([
-                'image'=>'required | mimes:jpg, jpeg, png',
+                'image'=>'required',
             ]);
         }
 

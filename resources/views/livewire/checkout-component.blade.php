@@ -54,7 +54,7 @@
                                     <span class="text-danger">{{$message}}</span>
                                 @enderror
                             </p>
-                            <p class="row-in-form">
+                            {{-- <p class="row-in-form">
                                 <label for="add">Line 1 :</label>
                                 <input type="text" name="add" value="" placeholder="Street at apartment number" wire:model="line1">
                                 @error('line1')
@@ -64,11 +64,16 @@
                             <p class="row-in-form">
                                 <label for="add">Line 2 :</label>
                                 <input type="text" name="add" value="" placeholder="Street at apartment number" wire:model="line2">
-
-                            </p>
+                            </p> --}}
                             <p class="row-in-form">
                                 <label for="country">Country<span>*</span></label>
-                                <input type="text" name="country" value="" placeholder="United States" wire:model="country">
+                                <select name="country" id="country" wire:model="country" style="width: 100%;height: 43px;padding: 2px 20px;border-color: #d8d8d8">
+                                    <option value="">Choose Country</option>
+                                    <option value="indonesia">Indonesia</option>
+                                    <option value="uni soviet">USSR</option>
+                                    <option value="uk">United Kingdom</option>
+                                    <option value="denmark">Denmark</option>
+                                </select>
                                 @error('country')
                                     <span class="text-danger">{{$message}}</span>
                                 @enderror
@@ -95,17 +100,17 @@
                                     <span class="text-danger">{{$message}}</span>
                                 @enderror
                             </p>
-                            <p class="row-in-form fill-wife">
+                            {{-- <p class="row-in-form fill-wife">
                                 <label class="checkbox-field">
                                     <input name="different-add" id="different-add" value="1" type="checkbox" wire:model="ship_to_different">
                                     <span>Ship to a different address?</span>
                                 </label>
-                            </p>
+                            </p> --}}
                         </div>
                     </div>
                 </div>
                 {{--  --}}
-                @if ($ship_to_different)
+                {{-- @if ($ship_to_different)
                 <div class="col-md-12">
                     <div class="wrap-address-billing">
                         <h3 class="box-title">Shipping Address</h3>
@@ -149,13 +154,15 @@
                                 <label for="add">Line 2 :</label>
                                 <input type="text" name="add" value="" placeholder="Street at apartment number" wire:model="s_line2">
                             </p>
-                            <p class="row-in-form">
+                            <div class="form-control input-md">
                                 <label for="country">Country<span>*</span></label>
-                                <input type="text" name="country" value="" placeholder="United States" wire:model="s_country">
+                                <select name="country" id="country" wire:model="country" >
+                                    <option value="">Choose Country</option>
+                                </select>
                                 @error('s_country')
                                     <span class="text-danger">{{$message}}</span>
                                 @enderror
-                            </p>
+                            </div>
 
                             <p class="row-in-form">
                                 <label for="city">Province<span>*</span></label>
@@ -181,7 +188,7 @@
                         </div>
                     </div>
                 </div>
-                @endif
+                @endif --}}
             </div>
 
             <div class="summary summary-checkout">
@@ -236,18 +243,13 @@
                             <span>Debit / Credit Card</span>
                             <span class="payment-desc">There are many variations of passages of Lorem Ipsum available</span>
                         </label>
-                        <label class="payment-method">
-                            <input name="payment-method" id="payment-method-paypal" value="paypal" type="radio" wire:model="paymentmode">
-                            <span>Paypal</span>
-                            <span class="payment-desc">You can pay with your credit</span>
-                            <span class="payment-desc">card if you don't have a paypal account</span>
-                        </label>
+
                         @error('paymentmode')
                             <span class="text-danger">{{$message}}</span>
                         @enderror
                     </div>
                     @if (Session::has('checkout'))
-                    <p class="summary-info grand-total"><span>Grand Total</span> <span class="grand-total-price">${{Session::get('checkout')['total']}}</span></p>
+                    <p class="summary-info grand-total"><span>Grand Total</span> <span class="grand-total-price">${{Session::get('checkout')['total'] + $deliveryCharge}}</span></p>
                     @endif
 
                     @if ($errors->isEmpty())
@@ -260,10 +262,20 @@
                     <button type="submit" class="btn btn-medium">Place order now</button>
                 </div>
                 <div class="summary-item shipping-method">
-                    <h4 class="title-box f-title">Shipping method</h4>
-                    <p class="summary-info"><span class="title">Flat Rate</span></p>
-                    <p class="summary-info"><span class="title">Fixed $0</span></p>
-
+                    <h4 class="title-box f-title">Delivery Charge</h4>
+                    <p class="row-in-form">
+                        <label for="country">Choose Expedition<span>*</span></label>
+                        <select style="width: 100%;height: 43px;padding: 2px 20px;border-color: #d8d8d8" name="country" id="country" wire:model="expedition" wire:change="calculateDeliveryCharge">
+                            <option value="">Choose Expedition</option>
+                            @foreach ($expeditions as $e)
+                            <option value="{{ $e->slug }}">{{ $e->name }}</option>
+                            @endforeach
+                        </select>
+                        @error('country')
+                            <span class="text-danger">{{$message}}</span>
+                        @enderror
+                    </p>
+                    <p class="summary-info grand-total"><span>Total Charge</span> <span class="grand-total-price">${{ $deliveryCharge }}</span></p>
                 </div>
             </div>
         </form>

@@ -5,8 +5,8 @@
 			<div class="wrap-main-slide">
 				<div class="slide-carousel owl-carousel style-nav-1" data-items="1" data-loop="1" data-nav="true" data-dots="false">
 					@foreach ($sliders as $slide)
-                    <div class="item-slide">
-						<img src="{{ asset('assets/images/sliders') }}/{{$slide->image}}" alt="" class="img-slide">
+                    <div class="item-slide" style="height: 500px;overflow: auto;">
+						<img style="height: 600px;" src="{{ asset('assets/images/sliders') }}/{{$slide->image}}" alt="" class="img-slide">
 						<div class="slide-info slide-1">
 							<h2 class="f-title"><b>{{$slide->title}}</b></h2>
 							<span class="subtitle">{{$slide->subtitle}}</span>
@@ -19,15 +19,15 @@
 			</div>
 
 			<!--BANNER-->
-			<div class="wrap-banner style-twin-default">
-				<div class="banner-item">
+			<div class="wrap-banner style-twin-default" style="margin-top: 5px;">
+				<div class="banner-item" style="height: 300px;overflow: auto;">
 					<a href="#" class="link-banner banner-effect-1">
-						<figure><img src="{{ asset('assets/images/home-1-banner-1.jpg') }}" alt="" width="580" height="190"></figure>
+						<figure><img style="height: 450px;" src="{{ asset('assets/images/turtle.jpg') }}" alt=""></figure>
 					</a>
 				</div>
-				<div class="banner-item">
+				<div class="banner-item" style="height: 300px;overflow: auto;">
 					<a href="#" class="link-banner banner-effect-1">
-						<figure><img src="{{ asset('assets/images/home-1-banner-2.jpg') }}" alt="" width="580" height="190"></figure>
+						<figure><img style="height: 450px;" src="{{ asset('assets/images/war.jpg') }}" alt=""></figure>
 					</a>
 				</div>
 			</div>
@@ -40,9 +40,9 @@
                     <div class="wrap-products slide-carousel owl-carousel  " data-items="5" data-loop="false" data-nav="true" data-dots="false" data-responsive='{"0":{"items":"1"},"480":{"items":"2"},"768":{"items":"3"},"992":{"items":"4"},"1200":{"items":"5"}}'>
                         @foreach ($sproducts as $sproduct)
                         <div class="product product-style-2 equal-elem ">
-                            <div class="product-thumnail">
+                            <div class="product-thumnail" style="height: 200px;">
                                 <a href="{{route('product.details',['slug'=>$sproduct->slug])}}" title="{{$sproduct->name}}">
-                                    <figure><img src="{{ asset('assets/images/products') }}/{{$sproduct->image}}" width="800" height="800" alt="T-Shirt Raw Hem Organic Boro Constrast Denim"></figure>
+                                    <figure><img style="height: 200px;width: 500px;" src="{{ asset('assets/images/products') }}/{{$sproduct->image}}" alt="T-Shirt Raw Hem Organic Boro Constrast Denim"></figure>
                                 </a>
                                 <div class="group-flash">
                                     <span class="flash-item sale-label">sale</span>
@@ -61,9 +61,9 @@
 			<!--Latest Products-->
 			<div class="wrap-show-advance-info-box style-1">
 				<h3 class="title-box">Latest Products</h3>
-				<div class="wrap-top-banner">
+				<div class="wrap-top-banner" style="overflow: auto;height: 300px;">
 					<a href="#" class="link-banner banner-effect-2">
-						<figure><img src="{{ asset('assets/images/digital-electronic-banner.jpg') }}" width="1170" height="240" alt=""></figure>
+						<figure><img style="height: 100%" src="{{ asset('assets/images/soldier.jpg') }}" width="1170" height="240" alt=""></figure>
 					</a>
 				</div>
 				<div class="wrap-products">
@@ -75,7 +75,7 @@
 									<div class="product product-style-2 equal-elem ">
 										<div class="product-thumnail">
 											<a href="{{route('product.details',['slug'=>$lproduct->slug])}}" title="{{$lproduct->name}}">
-												<figure><img src="{{ asset('assets/images/products') }}/{{$lproduct->image}}" width="800" height="800" alt="T-Shirt Raw Hem Organic Boro Constrast Denim"></figure>
+												<figure><img style="height: 200px;" src="{{ asset('assets/images/products') }}/{{$lproduct->image}}" width="800" height="800" alt="T-Shirt Raw Hem Organic Boro Constrast Denim"></figure>
 											</a>
 										</div>
 										<div class="product-info">
@@ -96,10 +96,10 @@
 				<h3 class="title-box">Product Categories</h3>
 				<div class="wrap-top-banner">
 					<a href="#" class="link-banner banner-effect-2">
-						<figure><img src="{{ asset('assets/images/fashion-accesories-banner.jpg') }}" width="1170" height="240" alt=""></figure>
+						{{-- <figure><img src="{{ asset('assets/images/fashion-accesories-banner.jpg') }}" width="1170" height="240" alt=""></figure> --}}
 					</a>
 				</div>
-				<div class="wrap-products">
+				<div class="wrap-products" style="height: 150px;">
 					<div class="wrap-product-tab tab-style-1">
 						<div class="tab-control">
                             @foreach ($categories as $key=>$category)
@@ -117,7 +117,7 @@
                                         <div class="product product-style-2 equal-elem ">
                                             <div class="product-thumnail">
                                                 <a href="{{route('product.details',['slug'=>$c_product->slug])}}" title="{{$c_product->name}}">
-                                                    <figure><img src="{{ asset('assets/images/products') }}/{{$c_product->image}}" width="800" height="800" alt="T-Shirt Raw Hem Organic Boro Constrast Denim"></figure>
+                                                    <figure><img style="width: 200px;" src="{{ asset('assets/images/products') }}/{{$c_product->image}}" width="800" height="800" alt="T-Shirt Raw Hem Organic Boro Constrast Denim"></figure>
                                                 </a>
                                             </div>
                                             <div class="product-info">

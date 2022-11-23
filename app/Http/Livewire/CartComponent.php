@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use Cart;
 use Carbon\Carbon;
+use App\Models\Product;
 use App\Models\Coupon;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,10 +20,22 @@ class CartComponent extends Component
 
     public function increaseQty($rowId)
     {
-        $product = Cart::instance('cart')->get($rowId);
-        $qty = $product->qty+1;
-        Cart::instance('cart')->update($rowId,$qty);
-        $this->emitTo('cart-count-component','refreshComponent');
+        $cproduct = Cart::instance('cart')->get($rowId);
+        $product = Product::find($cproduct->id);
+
+        if ($product != null) {
+            if ($product->quantity != 0) {
+                $qty = $cproduct->qty+1;
+                if ($qty <= $product->quantity) {
+                    Cart::instance('cart')->update($rowId,$qty);
+                    $this->emitTo('cart-count-component','refreshComponent');
+                }
+                else {
+                    return;
+                }
+            }
+        }
+
     }
 
     public function decreaseQty($rowId)
@@ -133,6 +146,8 @@ class CartComponent extends Component
 
     public function render()
     {
+        // Cart::instance('cart')->destroy();
+
         if (session()->has('coupon')) {
             if(Cart::instance('cart')->subtotal() < session()->get('coupon')['cart_value']){
                 session()->forget('coupon');

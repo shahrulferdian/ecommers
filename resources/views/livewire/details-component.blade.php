@@ -25,23 +25,23 @@
                     <div class="detail-media">
                         <div class="product-gallery" wire:ignore>
                           <ul class="slides">
-
                             <li data-thumb="{{ asset('assets/images/products') }}/{{ $product->image }}">
-                                <img src="{{ asset('assets/images/products') }}/{{ $product->image }}" alt=" {{ $product->name }}" />
+                                <img style="height: 300px;" src="{{ asset('assets/images/products') }}/{{ $product->image }}" alt=" {{ $product->name }}" />
                             </li>
                             @php
                                 $images = explode(',',$product->images)
                             @endphp
-                            @foreach ($images as $item)
-                                @if ($item)
-                                    <li data-thumb="{{ asset('assets/images/products') }}/{{ $item }}">
-                                        <img src="{{ asset('assets/images/products') }}/{{ $item }}" alt=" {{ $product->name }}" />
-                                    </li>
-                                @endif
-                            @endforeach
+                          @foreach ($images as $item)
+                              @if ($item)
+                                  <li data-thumb="{{ asset('assets/images/products') }}/{{ $item }}">
+                                      <img src="{{ asset('assets/images/products') }}/{{ $item }}" alt=" {{ $product->name }}" />
+                                  </li>
+                              @endif
+                          @endforeach
                           </ul>
                         </div>
                     </div>
+
                     <div class="detail-info">
                         <div class="product-rating">
                             <style>
@@ -116,10 +116,7 @@
                         @else
                             <a href="#" class="btn add-to-cart" wire:click.prevent="store( {{$product->id}}, '{{$product->name}}', {{$product->regular_price}} )">Add to Cart</a>
                         @endif
-                            <div class="wrap-btn">
-                                <a href="#" class="btn btn-compare">Add Compare</a>
-                                <a href="#" class="btn btn-wishlist">Add Wishlist</a>
-                            </div>
+
                         </div>
                     </div>
                     <div class="advance-info">
@@ -131,21 +128,6 @@
                         <div class="tab-contents">
                             <div class="tab-content-item active" id="description">
                                 {!! $product->description !!}
-                            </div>
-                            <div class="tab-content-item " id="add_infomation">
-                                <table class="shop_attributes">
-                                    <tbody>
-                                        <tr>
-                                            <th>Weight</th><td class="product_weight">1 kg</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Dimensions</th><td class="product_dimensions">12 x 15 x 23 cm</td>
-                                        </tr>
-                                        <tr>
-                                            <th>Color</th><td><p>Black, Blue, Grey, Violet, Yellow</p></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
                             </div>
                             <div class="tab-content-item " id="review">
 
@@ -201,8 +183,10 @@
                             </div>
                         </div>
                     </div>
+
                 </div>
-            </div><!--end main products area-->
+            </div>
+
 
             <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12 sitebar">
                 <div class="widget widget-our-services ">
@@ -269,7 +253,7 @@
                     </div>
                 </div>
 
-            </div><!--end sitebar-->
+            </div>
 
             <div class="single-advance-box col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <div class="wrap-show-advance-info-box style-1 box-in-site">
@@ -298,7 +282,7 @@
                             @endforeach
 
                         </div>
-                    </div><!--End wrap-products-->
+                    </div>
                 </div>
             </div>
 

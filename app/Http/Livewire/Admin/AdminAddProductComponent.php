@@ -67,7 +67,7 @@ class AdminAddProductComponent extends Component
             'SKU'=>'required',
             'stock_status'=>'required',
             'quantity'=>'required|numeric',
-            'image'=>'required|mimes:jpeg,png',
+            'image'=>'required',
             'category_id'=>'required'
         ]);
     }
@@ -83,7 +83,7 @@ class AdminAddProductComponent extends Component
             'SKU'=>'required',
             'stock_status'=>'required',
             'quantity'=>'required|numeric',
-            'image'=>'required|mimes:jpeg,png',
+            'image'=>'required',
             'category_id'=>'required'
         ]);
 
@@ -118,16 +118,16 @@ class AdminAddProductComponent extends Component
             $product->subcategory_id = $this->scategory_id;
         }
         $product->save();
-        foreach ($this->attribute_values as $key=>$attribute_value) {
-            $attr_value = explode(',', $attribute_value);
-            foreach ($attr_value as $avalue) {
-                $attr_value = new AttributeValue();
-                $attr_value->product_attribute_id = $key;
-                $attr_value->value = $avalue;
-                $attr_value->product_id = $product->id;
-                $attr_value->save();
-            }
-        }
+        // foreach ($this->attribute_values as $key=>$attribute_value) {
+        //     $attr_value = explode(',', $attribute_value);
+        //     foreach ($attr_value as $avalue) {
+        //         $attr_value = new AttributeValue();
+        //         $attr_value->product_attribute_id = $key;
+        //         $attr_value->value = $avalue;
+        //         $attr_value->product_id = $product->id;
+        //         $attr_value->save();
+        //     }
+        // }
         session()->flash('message', 'Product has been added');
     }
 

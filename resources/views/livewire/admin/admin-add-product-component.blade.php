@@ -1,4 +1,4 @@
-<div>
+  <div>
     <div class="container" style="padding: 30px 0;">
         <div class="row">
             <div class="col-md-12">
@@ -98,7 +98,7 @@
                                 </div>
                             </div>
                             {{--  --}}
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <label class="col-md-4 control-label">Featured</label>
                                 <div class="col-md-4">
                                     <select class="form-control" wire:model="featured">
@@ -106,7 +106,7 @@
                                         <option value="1">Yes</option>
                                     </select>
                                 </div>
-                            </div>
+                            </div> --}}
                             {{--  --}}
                             <div class="form-group">
                                 <label class="col-md-4 control-label">Quantity</label>
@@ -131,7 +131,7 @@
                                 @enderror
                                 </div>
                             </div>
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <label class="col-md-4 control-label">Sub Category</label>
                                 <div class="col-md-4">
                                     <select class="form-control input-md" wire:model="scategory_id">
@@ -141,9 +141,9 @@
                                         @endforeach
                                     </select>
                                 </div>
-                            </div>
+                            </div> --}}
                             <br>
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <label class="col-md-4 control-label">Product Attribute</label>
                                 <div class="col-md-3">
                                     <select name="" id="" class="form-control input-md" wire:model="attribute">
@@ -157,8 +157,8 @@
                                 <div class="col-md-1">
                                     <button type="button" class="btn btn-info" wire:click.prevent="addAttribute">Add</button>
                                 </div>
-                            </div>
-                            @foreach ($inputs as $key=>$value)
+                            </div> --}}
+                            {{-- @foreach ($inputs as $key=>$value)
                             <div class="form-group">
                                 <label for="" class="col-md-4 control-label">{{ $attributes->where('id',$attribute_array[$key])->first()->name }}</label>
 
@@ -179,7 +179,7 @@
                                 @endif
 
                             </div>
-                        @endforeach
+                        @endforeach --}}
                             {{--  --}}
                             <div class="form-group">
                                 <label class="col-md-4 control-label">Product Image</label>
@@ -194,7 +194,7 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
+                            {{-- <div class="form-group">
                                 <label for="" class="col-md-4 control-label">Product Gallery</label>
                                 <div class="col-md-4">
                                     <input type="file" value="" class="input-file" wire:model="images" multiple>
@@ -209,7 +209,7 @@
                                     @enderror
                                 </div>
 
-
+                            </div> --}}
                             {{--  --}}
 
 

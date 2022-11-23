@@ -27,5 +27,9 @@ class Order extends Model
         return $this->hasOne(Transaction::class);
     }
 
+    public function expedition(){
+        return $this->belongsTo(expedition::class);
+    }
+
 }
 

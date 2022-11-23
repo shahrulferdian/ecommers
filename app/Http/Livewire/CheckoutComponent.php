@@ -7,6 +7,8 @@ use App\Models\OrderItem;
 use App\Models\Shipping;
 use App\Models\Transaction;
 use App\Mail\OrderMail;
+use App\Models\expedition;
+use App\Models\Product;
 use Cart;
 use Stripe;
 use Illuminate\Support\Facades\Auth;
@@ -16,6 +18,8 @@ use Livewire\Component;
 class CheckoutComponent extends Component
 {
     public $ship_to_different;
+    public $expedition;
+    public $deliveryCharge;
 
     public $firstname;
     public $lastname;
@@ -58,7 +62,8 @@ class CheckoutComponent extends Component
             'province'=>'required',
             'country'=>'required',
             'zipcode'=>'required',
-            'paymentmode'=>'required'
+            'paymentmode'=>'required',
+            'expedition'=>'required'
         ]);
 
         if ($this->ship_to_different) {
@@ -72,6 +77,7 @@ class CheckoutComponent extends Component
                 's_province'=>'required',
                 's_country'=>'required',
                 's_zipcode'=>'required',
+                'expedition'=>'required'
             ]);
         }
 
@@ -85,13 +91,56 @@ class CheckoutComponent extends Component
         }
     }
 
+    public function mount()
+    {
+        $this->deliveryCharge = 0;
+    }
+
+    public function calculateDeliveryCharge()
+    {
+        $country = $this->country;
+        $expedition = $this->expedition;
+
+        $length = null;
+
+        switch ($country) {
+            case 'indonesia':
+                $length = 2000;
+                break;
+
+            case 'uni soviet':
+                $length = 2300;
+                break;
+
+            case 'uk':
+                $length = 100;
+                break;
+
+            case 'denmark':
+                $length = 3220;
+                break;
+
+            default:
+                # code...
+                break;
+        }
+
+        if ($expedition != null) {
+            $perKm = expedition::where('slug', $expedition)->first()->price_perkm;
+            $this->deliveryCharge = $perKm * $length;
+        }
+
+        return;
+    }
+
     public function placeOrder(){
+
         $this->validate([
             'firstname'=>'required',
             'lastname'=>'required',
             'email'=>'required|email',
             'mobile'=>'required|numeric',
-            'line1'=>'required',
+            // 'line1'=>'required',
             'city'=>'required',
             'province'=>'required',
             'country'=>'required',
@@ -110,10 +159,11 @@ class CheckoutComponent extends Component
 
         $order = new Order();
         $order->user_id = Auth::user()->id;
+        $order->expedition_id = expedition::where('slug', $this->expedition)->first()->id;
         $order->subtotal = session()->get('checkout')['subtotal'];
         $order->discount = session()->get('checkout')['discount'];
         $order->tax = session()->get('checkout')['tax'];
-        $order->total = session()->get('checkout')['total'];
+        $order->total = session()->get('checkout')['total']+$this->deliveryCharge;
         $order->firstname = $this->firstname;
         $order->lastname = $this->lastname;
         $order->email = $this->email;
@@ -124,9 +174,11 @@ class CheckoutComponent extends Component
         $order->province = $this->province;
         $order->country = $this->country;
         $order->zipcode = $this->zipcode;
+        $order->delivery_charge = $this->deliveryCharge;
         $order->status = 'ordered';
         $order->is_shipping_different = $this->ship_to_different ? 1:0;
         $order->save();
+
 
         foreach(Cart::instance('cart')->content() as $item)
         {
@@ -137,6 +189,8 @@ class CheckoutComponent extends Component
             $orderItem->quantity = $item->qty;
             $orderItem->save();
         }
+
+
 
         if ($this->ship_to_different) {
             $this->validate([
@@ -164,6 +218,18 @@ class CheckoutComponent extends Component
             $shipping->zipcode = $this->s_zipcode;
             $shipping->save();
         }
+
+        //  if ($order->save()) {
+        //     foreach (Cart::instance('cart')->content() as $item) {
+        //         $min = $item->qty;
+        //         $id = $item->id;
+        //         $product = new Product();
+
+        //         $p = $product->find($id);
+        //         $p->quantity = $p->quantity - $min;
+        //         $p->save();
+        //     }
+        // }
 
         if ($this->paymentmode == 'cod') {
             $this->makeTransaction($order->id,'pending');
@@ -268,6 +334,7 @@ class CheckoutComponent extends Component
     public function render()
     {
         $this->verifyForCheckout();
-        return view('livewire.checkout-component')->layout('layouts.base');
+        $mydata['expeditions'] = expedition::latest()->get();
+        return view('livewire.checkout-component', $mydata)->layout('layouts.base');
     }
 }

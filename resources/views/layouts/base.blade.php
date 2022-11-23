@@ -83,9 +83,9 @@
                                                     <li class="menu-item">
                                                         <a title="Categories" href="{{route('admin.categories')}}">Categories</a>
                                                     </li>
-                                                    <li class="menu-item">
+                                                    {{-- <li class="menu-item">
                                                         <a href="{{ route('admin.attributes') }}" title="Attributes">Attributes</a>
-                                                    </li>
+                                                    </li> --}}
                                                     <li class="menu-item">
                                                         <a title="Products" href="{{route('admin.products')}}">All Products</a>
                                                     </li>
@@ -109,6 +109,26 @@
                                                     </li>
                                                     <li class="menu-item">
                                                         <a href="{{ route('admin.settings') }}" title="Settings  ">Settings</a>
+                                                    </li>
+                                                    <li class="menu-item">
+                                                        <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
+                                                    </li>
+
+                                                    <form id="logout-form" action="{{ route('logout') }}" method="post">
+                                                        @csrf
+
+                                                    </form>
+                                                </ul>
+                                            </li>
+                                            @elseif(Auth::user()->utype === 'SPR')
+                                            <li class="menu-item menu-item-has-children parent" >
+                                                <a title="My Account" href="#">My Account ( {{Auth::user()->name}} )<i class="fa fa-angle-down" aria-hidden="true"></i></a>
+                                                <ul class="submenu curency" >
+                                                    {{-- <li class="menu-item">
+                                                        <a href="{{ route('admin.attributes') }}" title="Attributes">Attributes</a>
+                                                    </li> --}}
+                                                    <li class="menu-item">
+                                                        <a title="Products" href="{{route('admin.products')}}">All Products</a>
                                                     </li>
                                                     <li class="menu-item">
                                                         <a href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
@@ -162,7 +182,7 @@
                         <div class="mid-section main-info-area">
 
                             <div class="wrap-logo-top left-section">
-                                <a href="index.html" class="link-to-home"><img src="{{ asset('assets/images/logo-top-1.png') }}" alt="mercado"></a>
+                                <a href="index.html" class="link-to-home"><img src="{{ asset('assets/images/tank.jfif') }}" alt="mercado"></a>
                             </div>
 
                             @livewire('header-search-component')
@@ -183,17 +203,17 @@
                     </div>
 
                     <div class="nav-section header-sticky">
-                        <div class="header-nav-section">
+                        {{-- <div class="header-nav-section">
                             <div class="container">
-                                <ul class="nav menu-nav clone-main-menu" id="mercado_haead_menu" data-menuname="Sale Info" >
-                                    <li class="menu-item"><a href="#" class="link-term">Weekly Featured</a><span class="nav-label hot-label">hot</span></li>
-                                    <li class="menu-item"><a href="#" class="link-term">Hot Sale items</a><span class="nav-label hot-label">hot</span></li>
-                                    <li class="menu-item"><a href="#" class="link-term">Top new items</a><span class="nav-label hot-label">hot</span></li>
-                                    <li class="menu-item"><a href="#" class="link-term">Top Selling</a><span class="nav-label hot-label">hot</span></li>
-                                    <li class="menu-item"><a href="#" class="link-term">Top rated items</a><span class="nav-label hot-label">hot</span></li>
+                                <ul class="nav menu-nav clone-main-menu" id="mercado_haead_menu" data-menuname="" >
+                                    <li class="menu-item"><a href="#" class="link-term"></a>
+                                    <li class="menu-item"><a href="#" class="link-term"></a>
+                                    <li class="menu-item"><a href="#" class="link-term"></a>
+                                    <li class="menu-item"><a href="#" class="link-term"></a>
+                                    <li class="menu-item"><a href="#" class="link-term"></a>
                                 </ul>
                             </div>
-                        </div>
+                        </div> --}}
 
                         <div class="primary-nav-section">
                             <div class="container">
